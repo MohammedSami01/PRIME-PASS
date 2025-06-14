@@ -1,7 +1,6 @@
 "use client"
 
-import React, { ReactElement } from "react"
-
+import React, { ReactElement, FormEvent } from "react"
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
@@ -10,9 +9,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast"
 import { Facebook, Github } from "lucide-react"
 
-export default function LoginForm() {
+interface LoginFormProps {
+  // Add any props you expect to receive
+}
+
+interface LoginFormState {
+  email: string
+  password: string
+}
+
+export default function LoginForm(props: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [formState, setFormState] = useState<LoginFormState>({
+    email: '',
+    password: '',
+  })
   const router = useRouter()
   const { toast } = useToast()
   
